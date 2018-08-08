@@ -1,0 +1,30 @@
+{% extends "model.html" %}
+
+{% block state %}
+
+{% if root == 1 %}
+<li><a class="nav-link" href="{{cityid}}/modification">修改</a></li>
+<li><a class="nav-link active" href="{{cityid}}/upload">上传图片</a></li>
+{% endif %}
+<li><a class="nav-link active" href="/">返回首页</a></li>
+
+
+{% endblock %}
+
+{% block header %}
+{{content[0][1]}}
+{% endblock %}
+
+
+{% block content %}
+
+{% if content[0][2] %}
+{{content[0][2]}}
+{% endif %}
+
+{% if content[0][3] %}
+<div><span class="img"><img src="/static/upload/{{content[0][3]}}" alt="地区图片" width="860" border="0"/></span></div>
+{% endif %}
+
+{% endblock %}
+

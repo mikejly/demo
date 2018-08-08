@@ -1,0 +1,7 @@
+E0001:EOL while scanning string literal (<string>, line 28)
+扫描到错误的字符串后中止
+原因：多是语法问题，如缺一半“”，或是中文标点的出现
+
+W0612:Unused variable 'aaa'
+未用到的变量
+原因：在函数中定义了新变量，却没有传递回主程序

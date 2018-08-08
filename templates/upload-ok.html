@@ -1,0 +1,14 @@
+<html>
+<head>
+<title>上传成功</title>
+</head>
+<body>
+<p><a href="/area/{{cityid}}">返回上传页面</a></p>
+<p>上传成功</p>
+{% if filename %}
+<div><img src="/static/upload/{{filename}}" alt="chmap" width="860" border="0"/></div>
+<br/>
+上面为您上传的图片
+{% endif %}
+      </body>
+</html>

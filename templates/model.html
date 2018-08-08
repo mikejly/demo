@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--头文件，调取css-->
+<head>
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>红色中国</title>
+
+<script type="text/javascript">
+  function sign1()
+  {
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+    }
+  else
+    {// code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  xmlhttp.onreadystatechange=function()
+  //onreadystatechange 事件被触发 5 次（0 - 4），对应着 readyState 的每个变化。
+    {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+      document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+      }
+    }
+  xmlhttp.open("GET","/testcontent",true);
+  xmlhttp.send();
+  }
+  </script>
+
+<script type="text/javascript">
+  function sign2()
+  {
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+    }
+  else
+    {// code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  xmlhttp.onreadystatechange=function()
+  //onreadystatechange 事件被触发 5 次（0 - 4），对应着 readyState 的每个变化。
+    {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+      document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+      }
+    }
+  xmlhttp.open("POST","/sign-ok",true);
+  xmlhttp.send();
+  }
+  </script>
+
+</head>
+<body>
+<div class = "container-fluid">
+
+<!--页头部分-->
+<div>
+<div id = "myDiv"></div>
+<!--状态栏部分-->
+<ul class="nav" style = "float:right">
+{% if uid %}
+<li class="nav-item" style = "float:right">
+<p class="nav-link active" style = "color:#007bff">你好，{{username}}</p>
+</li>
+<li class="nav-item" style = "float:right">
+<a  class="nav-link active" href="/signoff">退出登陆</a>
+</li>
+{% block state %}{% endblock %}
+{% else %}
+<li class="nav-item" style = "float:right">
+<a class="nav-link active" href="/signin">登陆</a>
+</li>
+<li class="nav-item" style = "float:right">
+<a class="nav-link active" href="/reg">注册</a>
+{% endif %}
+</li>
+</ul>
+<!--标题部分-->
+<div>
+  <h1 align="left" style = "color:#b22222">
+  <strong class="header">{% block header %}空{% endblock %}</strong>
+  </h1>
+</div>
+
+</div>
+<hr />
+<!--内容部分-->
+
+<div>
+<!--侧边栏部分-->
+<div class="list-group" style = "width:20%;position:absolute">
+    {% for city in cities %}
+    <li class="list-group-item" style = "width:50%;text-align:center"><a style = "color:#FF6600" href="/area/{{city[0]}}"><strong>{{city[1]}}</strong></a></li>
+    {% endfor %}
+</div>
+
+<!--正文部分-->
+
+<div style = "width:60%;margin:0 auto;position:absolute;right:20%;text-align:center">
+{% block content %}
+{% endblock %}
+</div>
+</div>
+
+
+<!--脚注部分-->
+{% block footer %}
+<div style = "width:100%;position:fixed;bottom:0;text-align:center;color:#0033FF"><tt><em>made by mikejly </em></tt></div>
+{% endblock %}
+</div>
+
+</body>
+</html>
