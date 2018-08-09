@@ -1,46 +1,70 @@
-function sign1()
+
+function ajaxSignin()
 {
+
+username = document.getElementById("username").value;
+password = document.getElementById("password").value;
+
 var xmlhttp;
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
+
+xmlhttp=new XMLHttpRequest();
+
+
 xmlhttp.onreadystatechange=function()
 //onreadystatechange 事件被触发 5 次（0 - 4），对应着 readyState 的每个变化。
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+{
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
     {
-    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+        if (xmlhttp.responseText == "success")
+        {
+            var choice = confirm("登陆成功！")
+            if (choice == true)
+            {
+                window.location = "/";
+            }
+        }
+        else
+        {
+            alert(xmlhttp.responseText);
+        }
     }
-  }
-xmlhttp.open("GET","/testcontent",true);
-xmlhttp.send();
+}
+xmlhttp.open("POST","/signin",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("username=" + username + "&password=" + password);
 }
 
-
-function sign2()
+function ajaxRegister()
 {
+
+username = document.getElementById("username").value;
+password = document.getElementById("password").value;
+
 var xmlhttp;
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
+
+xmlhttp=new XMLHttpRequest();
+
+
 xmlhttp.onreadystatechange=function()
 //onreadystatechange 事件被触发 5 次（0 - 4），对应着 readyState 的每个变化。
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+{
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
     {
-    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+        if (xmlhttp.responseText == "success")
+        {
+            var choice = confirm("注册成功！")
+            if (choice == true)
+            {
+                window.location = "/";
+            }
+        }
+        else
+        {
+            alert(xmlhttp.responseText);
+        }
     }
-  }
-xmlhttp.open("POST","/sign-ok",true);
-xmlhttp.send();
+}
+xmlhttp.open("POST","/reg",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("username=" + username + "&password=" + password);
 }

@@ -59,9 +59,12 @@ app.secret_key = '111111'
 
 
 
+
+
 @app.route('/reg', methods=['GET'])
 def reg_form():
-    return render_template('process.html',state = "reg")
+    return render_template('reg.html')
+
 
 @app.route('/reg', methods=['POST'])
 def register():
@@ -74,10 +77,10 @@ def register():
         close_db(db)
         session['username'] = username
         session['uid'] = uid[0]
-        return render_template('process.html',username = username)
+        return "success"
     else:
         close_db(db)
-        return render_template('process.html',state = "out_of_range")
+        return "请将您的用户名设在20个字符内，密码设在7-20个字符以内！"
 
 app.secret_key = '111111'
 
@@ -152,4 +155,27 @@ def signin():
     else:
         close_db(db)
         return render_template('process.html', state = "out_of_range")
+
+@app.route('/reg', methods=['GET'])
+def reg_form():
+    return render_template('process.html',state = "reg")
+
+
+@app.route('/reg', methods=['POST'])
+def register():
+    username = request.form['username']
+    password = request.form['password']
+    db = open_db()
+    if len(username) <= 20 and 7 <= len(password) <= 20:
+        execute_sql(db, "insert into user (username, password,root) values('"+ username + "', '" + password +"','0')", 'insert')
+        uid = execute_sql(db, "select id from user where username = '" + username + "'", 'fetchone')
+        close_db(db)
+        session['username'] = username
+        session['uid'] = uid[0]
+        return render_template('process.html',username = username)
+    else:
+        close_db(db)
+        return render_template('process.html',state = "out_of_range")
+
+app.secret_key = '111111'
 '''
