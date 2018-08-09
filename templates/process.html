@@ -27,43 +27,7 @@
     <p>修改成功</p>
 {% endif %}
 
-{% if state == "sign" %}
-<script type="text/javascript">
-    function ajaxSignin()
-    {
- 
-    username = document.getElementById("username").value;
-    password = document.getElementById("password").value;
 
-    var xmlhttp;
-
-    xmlhttp=new XMLHttpRequest();
-    
-
-    xmlhttp.onreadystatechange=function()
-    //onreadystatechange 事件被触发 5 次（0 - 4），对应着 readyState 的每个变化。
-    {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-            if (xmlhttp.responseText == "success")
-            {
-                window.location = "/";
-            }
-            else
-            {
-                alert(xmlhttp.responseText);
-            }
-        }
-    }
-    xmlhttp.open("POST","/ajaxSignin",true);
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xmlhttp.send("username=" + username + "&password=" + password);
-    }
-</script>
-<legend>请输入您的登陆账号和密码：</legend>
-<p><input id="username" name="username" placeholder="Username" value="{{ username }}"></p>
-<p><input id="password" name="password" placeholder="Password" type="password"></p>
-<p><button type="submit" onClick="ajaxSignin()">登录</button></p>
 
 {% elif state == "reg" %}
   <form action="/reg" method="post">
