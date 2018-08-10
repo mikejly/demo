@@ -68,3 +68,14 @@ xmlhttp.open("POST","/reg",true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 xmlhttp.send("username=" + username + "&password=" + password);
 }
+
+function ajaxMod()
+{
+    var confirm = confirm("确定要修改吗{{cityid}}？")
+    if (confirm == true)
+    {
+        window.location = "/";
+    }
+
+
+}

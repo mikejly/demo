@@ -2,12 +2,13 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/static/model.css" />
 <link rel="stylesheet" type="text/css" href="/static/bootstrap.css" />
+<script type="text/javascript" src = "/static/js/ajax.js"></script>
 </head>
 <body>
 {% if root == 1 %}
 <form action="/area/{{cityid}}/modification" method="post">
 <div><textarea rows="40" cols="100" name="description" value="{{description}}">{{description}}</textarea></div>
-<p><button  class="btn btn-primary" type="submit">保存</button></p>
+<p><button  class="btn btn-primary" type="submit" onClick="ajaxMod()">保存</button></p>
 </form>
 {% else %}
 您没有权限进行此操作！

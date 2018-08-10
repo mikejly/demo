@@ -104,7 +104,7 @@ def modification(cityid):
     db = open_db()
     execute_sql(db, "UPDATE city SET description = '"+modification+"'WHERE id = '"+cityid+"'", 'update')
     close_db(db)
-    return render_template('process.html',cityid = cityid)
+    return render_template('modification.html',root = root[0])
 
 @app.route('/area/<cityid>/upload', methods=['GET'])
 def upload_get(cityid):
