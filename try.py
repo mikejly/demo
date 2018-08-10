@@ -11,10 +11,6 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-
-
-
-
 @app.route('/', methods=['GET', 'POST'])
 #使用 route() 装饰器告诉 Flask 什么样的URL 能触发我们的函数，即将url与函数绑定
 def home():
@@ -104,7 +100,7 @@ def modification(cityid):
     db = open_db()
     execute_sql(db, "UPDATE city SET description = '"+modification+"'WHERE id = '"+cityid+"'", 'update')
     close_db(db)
-    return render_template('modification.html',root = root[0])
+    return "success"
 
 @app.route('/area/<cityid>/upload', methods=['GET'])
 def upload_get(cityid):
@@ -120,14 +116,6 @@ def upload_post(cityid):
     execute_sql(db, "UPDATE city SET picture = '"+filename+"'WHERE id = '"+cityid+"'",'update')
     close_db(db)
     return render_template('upload-process.html',cityid = cityid,filename = filename)
-
-@app.route('/test', methods=['GET'])
-def test():
-    return render_template('AJAX_demo.html')
-
-@app.route('/sign-ok', methods=['GET'])
-def testcontent():
-    return render_template('newchina.html')
 
 if __name__ == '__main__':#确保本py文件仅在直接运行时执行下列代码，作为模块调用时不会执行测试代码
     app.run(debug=True)#用 run() 函数来让应用运行在本地服务器上
