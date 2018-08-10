@@ -1,3 +1,8 @@
+function sublayer()
+{      
+	var sublayer=document.getElementById('sublayer');
+	sublayer.style.display="block";    
+}    
 
 function ajaxSignin()
 {
@@ -21,7 +26,7 @@ xmlhttp.onreadystatechange=function()
         }
         else
         {
-            alert(xmlhttp.responseText);
+            sublayer();
         }
     }
 }
@@ -91,3 +96,4 @@ function ajaxMod(cityid)
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("description=" + description);
 }
+

@@ -46,10 +46,12 @@ def Signin():
             session['uid'] = data[0][0]
             session['username'] = data[0][1]
             return "success"
-        return "用户名或密码错误"
+        message = "用户名或密码错误"
+        return message
     else:
         close_db(db)
-        return "用户名或密码超出范围"
+        message = "用户名或密码超出范围"
+        return message
 
 app.secret_key = '111111'
 
