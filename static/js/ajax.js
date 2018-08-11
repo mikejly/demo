@@ -1,7 +1,7 @@
 function sublayer()
 {      
 	var sublayer=document.getElementById('sublayer');
-	sublayer.style.display="block";    
+    sublayer.style.display="block";    
 }    
 
 function ajaxSignin()
@@ -27,6 +27,14 @@ xmlhttp.onreadystatechange=function()
         else
         {
             sublayer();
+            if (xmlhttp.responseText == "fault")
+            {
+                document.getElementById('sublayer').innerHTML = '用户名或密码错误';
+            }
+            if (xmlhttp.responseText == "outOfRange")
+            {
+                document.getElementById('sublayer').innerHTML = '用户名或密码超出范围';
+            }
         }
     }
 }
@@ -58,10 +66,14 @@ xmlhttp.onreadystatechange=function()
         }
         else
         {
-            alert(xmlhttp.responseText);
+            sublayer();
+            if (xmlhttp.responseText == "outOfRange")
+            {
+                document.getElementById('sublayer').innerHTML = '请将您的用户名设在20个字符内，密码设在7-20个字符以内！';
+            }
+        }
         }
     }
-}
 xmlhttp.open("POST","/reg",true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 xmlhttp.send("username=" + username + "&password=" + password);

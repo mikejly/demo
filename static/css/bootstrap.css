@@ -9028,3 +9028,47 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+/*###自定义部分### */
+
+/*##实现框在页面完全居中## */
+.completeCenter{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/*##实现父框内子元素居中## */
+.inDivCenter{
+  margin:0px auto;
+  width:500px;
+  text-align:center;
+}
+
+/*##标准弹出框格式## */
+.popUp{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: 1px solid #000;
+  background-color: #fff;
+  width:300px;
+  height:200px;
+  text-align:center;
+}
+
+/*##标准提示信息格式## */
+.remindInfo{
+  color:red;
+  text-align:center;
+}

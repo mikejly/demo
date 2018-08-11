@@ -46,12 +46,10 @@ def Signin():
             session['uid'] = data[0][0]
             session['username'] = data[0][1]
             return "success"
-        message = "用户名或密码错误"
-        return message
+        return "fault"
     else:
         close_db(db)
-        message = "用户名或密码超出范围"
-        return message
+        return "outOfRange"
 
 app.secret_key = '111111'
 
@@ -78,7 +76,7 @@ def register():
         return "success"
     else:
         close_db(db)
-        return "请将您的用户名设在20个字符内，密码设在7-20个字符以内！"
+        return "outOfRange"
 
 app.secret_key = '111111'
 
