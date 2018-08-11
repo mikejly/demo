@@ -1,7 +1,19 @@
-function sublayer()
+function popUpSignin()
 {      
-	var sublayer=document.getElementById('sublayer');
-    sublayer.style.display="block";    
+	var popUp=document.getElementById('popUpSignin');
+    popUp.style.display="block";    
+}    
+
+function popUpReg()
+{      
+	var popUp=document.getElementById('popUpReg');
+    popUp.style.display="block";    
+}    
+
+function popUpSec()
+{      
+	var popUp=document.getElementById('popUpSec');
+    popUp.style.display="block";    
 }    
 
 function ajaxSignin()
@@ -26,14 +38,14 @@ xmlhttp.onreadystatechange=function()
         }
         else
         {
-            sublayer();
+            popUpSec();
             if (xmlhttp.responseText == "fault")
             {
-                document.getElementById('sublayer').innerHTML = '用户名或密码错误';
+                document.getElementById('popUpSec').innerHTML = '用户名或密码错误';
             }
             if (xmlhttp.responseText == "outOfRange")
             {
-                document.getElementById('sublayer').innerHTML = '用户名或密码超出范围';
+                document.getElementById('popUpSec').innerHTML = '用户名或密码超出范围';
             }
         }
     }
@@ -66,10 +78,10 @@ xmlhttp.onreadystatechange=function()
         }
         else
         {
-            sublayer();
+            popUpSec();
             if (xmlhttp.responseText == "outOfRange")
             {
-                document.getElementById('sublayer').innerHTML = '请将您的用户名设在20个字符内，密码设在7-20个字符以内！';
+                document.getElementById('popUpSec').innerHTML = '请将您的用户名设在20个字符内，密码设在7-20个字符以内！';
             }
         }
         }

@@ -29,11 +29,11 @@ def area(cityid):
     cities = id_name_get(db)
     close_db(db)
     return render_template('area.html',cities = cities,username = session['username'],content = content,cityid = cityid,root = root[0],uid = uid)
-
+'''
 @app.route('/signin', methods=['GET'])
 def SigninForm():
     return render_template('signin.html')
-
+'''
 @app.route('/signin', methods=['POST'])#登陆成功ajax修改
 def Signin():
     username = request.form['username']
@@ -56,11 +56,11 @@ app.secret_key = '111111'
 
 
 
-
+'''
 @app.route('/reg', methods=['GET'])
 def reg_form():
     return render_template('reg.html')
-
+'''
 
 @app.route('/reg', methods=['POST'])
 def register():

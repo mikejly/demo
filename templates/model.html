@@ -28,12 +28,15 @@
 {% else %}
 <li class="nav-item" style = "float:right">
 <a class="nav-link active" href="/signin">登陆</a>
+<a class="nav-link active" href="javascript:popUpSignin()">登陆</a>
+
 </li>
 <li class="nav-item" style = "float:right">
 <a class="nav-link active" href="/reg">注册</a>
+<a class="nav-link active" href="javascript:popUpReg()">注册</a>
+</li>
 
 {% endif %}
-</li>
 </ul>
 <!--标题部分-->
 <div>
@@ -66,6 +69,25 @@
 <div style = "width:100%;position:fixed;bottom:0;text-align:center;color:#0033FF"><tt><em>made by mikejly </em></tt></div>
 {% endblock %}
 </div>
+
+<!--弹出框部分-->
+<div class = "popUp" id="popUpSignin" style="display:none">
+    <legend class = "inDivCenter" id = "signTitle">请输入您的登陆账号和密码：</legend>
+    <p><input id="username" name="username" placeholder="Username" class = "inDivCenter"></p>
+    <p><input id="password" name="password" placeholder="Password" type="password" class = "inDivCenter"></p>
+    <p><button type="submit" onClick="ajaxSignin()" class = "btn btn-primary">登录</button></p>
+    <div id="popUpSec" style="display:none" class = "remindInfo"></div> 
+</div>
+
+<div class = "popUp" id="popUpReg" style="display:none">
+    <legend class = "inDivCenter" id = "signTitle">请设置您的注册账号和密码:</legend>
+    <p><input id="username" name="username" placeholder="Username" class = "inDivCenter"></p>
+    <p><input id="password" name="password" placeholder="Password" type="password" class = "inDivCenter"></p>
+    <p><button type="submit" onClick="ajaxSignin()" class = "btn btn-primary">注册</button></p>
+    <div id="popUpSec" style="display:none" class = "remindInfo"></div> 
+</div>
+
+
 
 </body>
 </html>
