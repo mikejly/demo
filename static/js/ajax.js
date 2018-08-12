@@ -10,17 +10,23 @@ function popUpReg()
     popUp.style.display="block";    
 }    
 
-function popUpSec()
+function warningSign()
 {      
-	var popUp=document.getElementById('popUpSec');
+	var popUp=document.getElementById('warningSign');
+    popUp.style.display="block";    
+}    
+
+function warningReg()
+{      
+	var popUp=document.getElementById('warningReg');
     popUp.style.display="block";    
 }    
 
 function ajaxSignin()
 {
 
-username = document.getElementById("username").value;
-password = document.getElementById("password").value;
+username = document.getElementById("signUsername").value;
+password = document.getElementById("signPassword").value;
 
 var xmlhttp;
 
@@ -38,28 +44,28 @@ xmlhttp.onreadystatechange=function()
         }
         else
         {
-            popUpSec();
+            warningSign();
             if (xmlhttp.responseText == "fault")
             {
-                document.getElementById('popUpSec').innerHTML = '用户名或密码错误';
+                document.getElementById('warningSign').innerHTML = '用户名或密码错误';
             }
             if (xmlhttp.responseText == "outOfRange")
             {
-                document.getElementById('popUpSec').innerHTML = '用户名或密码超出范围';
+                document.getElementById('warningSign').innerHTML = '用户名或密码超出范围';
             }
         }
     }
 }
 xmlhttp.open("POST","/signin",true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-xmlhttp.send("username=" + username + "&password=" + password);
+xmlhttp.send("signUsername=" + username + "&signPassword=" + password);
 }
 
-function ajaxRegister()
+function ajaxReg()
 {
 
-username = document.getElementById("username").value;
-password = document.getElementById("password").value;
+username = document.getElementById("regUsername").value;
+password = document.getElementById("regPassword").value;
 
 var xmlhttp;
 
@@ -78,17 +84,17 @@ xmlhttp.onreadystatechange=function()
         }
         else
         {
-            popUpSec();
+            warningReg();
             if (xmlhttp.responseText == "outOfRange")
             {
-                document.getElementById('popUpSec').innerHTML = '请将您的用户名设在20个字符内，密码设在7-20个字符以内！';
+                document.getElementById('warningReg').innerHTML = '请将您的用户名设在20个字符内，密码设在7-20个字符以内！';
             }
         }
         }
     }
 xmlhttp.open("POST","/reg",true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-xmlhttp.send("username=" + username + "&password=" + password);
+xmlhttp.send("regUsername=" + username + "&regPassword=" + password);
 }
 
 function ajaxMod(cityid)

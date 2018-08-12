@@ -36,8 +36,8 @@ def SigninForm():
 '''
 @app.route('/signin', methods=['POST'])#登陆成功ajax修改
 def Signin():
-    username = request.form['username']
-    password = request.form['password']
+    username = request.form['signUsername']
+    password = request.form['signPassword']
     db = open_db()
     if len(username) <= 20 and 7 <=len(password) <= 20:
         data = execute_sql(db, "select id, username, password from user where username = '" + username + "'", 'fetchall')
@@ -64,8 +64,9 @@ def reg_form():
 
 @app.route('/reg', methods=['POST'])
 def register():
-    username = request.form['username']
-    password = request.form['password']
+    username = request.form['regUsername']
+    password = request.form['regPassword']
+    print(password)
     db = open_db()
     if len(username) <= 20 and 7 <= len(password) <= 20:
         execute_sql(db, "insert into user (username, password,root) values('"+ username + "', '" + password +"','0')", 'insert')
