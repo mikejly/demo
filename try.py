@@ -2,6 +2,7 @@ from flask import Flask, request, render_template,url_for, session,redirect
 from flask_socketio import SocketIO,emit
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
+from flask_socketio import join_room, leave_room
 import pymysql
 import os
 from function import open_db,close_db,execute_sql,if_signin,allowed_file,if_root,id_name_get,description_get
@@ -10,7 +11,8 @@ from function import open_db,close_db,execute_sql,if_signin,allowed_file,if_root
 UPLOAD_FOLDER = 'C:/programming/web/static/upload'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
 
 @app.route('/', methods=['GET', 'POST'])
 #使用 route() 装饰器告诉 Flask 什么样的URL 能触发我们的函数，即将url与函数绑定
@@ -107,8 +109,22 @@ def upload_post(cityid):
     close_db(db)
     return render_template('upload-process.html',cityid = cityid,filename = filename)
 
+@app.route('/chat')
+def index():
+    return render_template('index.html')
+
+@socketio.on('upload_message')
+def client_msg(data):
+    data['username'] = session['username']
+    emit('broadcast_message',{'message': data['message'],'username':data['username']},broadcast=True)
+    
+@socketio.on('connect_success')
+def connected_msg(data):
+    data['username'] = session['username']
+    emit('broadcast_message',{'message': data['message'],'username':data['username']},broadcast=True)
+
 if __name__ == '__main__':#确保本py文件仅在直接运行时执行下列代码，作为模块调用时不会执行测试代码
-    app.run(debug=True)#用 run() 函数来让应用运行在本地服务器上
+    socketio.run(app,debug=True,host='0.0.0.0',port=5000)#用 run() 函数来让应用运行在本地服务器上
 
 
 '''
