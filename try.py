@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template,url_for, session,redirect
+from flask_socketio import SocketIO,emit
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import pymysql
@@ -29,11 +30,7 @@ def area(cityid):
     cities = id_name_get(db)
     close_db(db)
     return render_template('area.html',cities = cities,username = session['username'],content = content,cityid = cityid,root = root[0],uid = uid)
-'''
-@app.route('/signin', methods=['GET'])
-def SigninForm():
-    return render_template('signin.html')
-'''
+
 @app.route('/signin', methods=['POST'])#登陆成功ajax修改
 def Signin():
     username = request.form['signUsername']
@@ -53,14 +50,6 @@ def Signin():
 
 app.secret_key = '111111'
 
-
-
-
-'''
-@app.route('/reg', methods=['GET'])
-def reg_form():
-    return render_template('reg.html')
-'''
 
 @app.route('/reg', methods=['POST'])
 def register():
@@ -165,6 +154,30 @@ def register():
     else:
         close_db(db)
         return render_template('process.html',state = "out_of_range")
+
+@app.route('/signin', methods=['GET'])
+def SigninForm():
+    return render_template('signin.html')
+
+@app.route('/reg', methods=['GET'])
+def reg_form():
+    return render_template('reg.html')
+
+from flask_socketio import SocketIO,emit
+socketio = SocketIO()
+socketio.init_app(app)
+@socketio.on('request_for_response',namespace='/testnamespace')
+def give_response(data):
+    value = data.get('param')
+
+    #进行一些对value的处理或者其他操作,在此期间可以随时会调用emit方法向前台发送消息
+    emit('response',{'code':'200','msg':'start to process...'})
+
+    time.sleep(5)
+    emit('response',{'code':'200','msg':'processed'})
+
+if __name__ == '__main__':#确保本py文件仅在直接运行时执行下列代码，作为模块调用时不会执行测试代码
+    socketio.run(app,debug=True,host='0.0.0.0',port=5000)#用 run() 函数来让应用运行在本地服务器上
 
 app.secret_key = '111111'
 '''
