@@ -111,17 +111,19 @@ def upload_post(cityid):
 
 @app.route('/chat')
 def index():
-    return render_template('index.html')
+    uid = if_signin(session)
+    return render_template('index.html',uid = uid,username = session['username'])
 
 @socketio.on('upload_message')
 def client_msg(data):
+    print('ddddddd' + str(data))
     data['username'] = session['username']
     emit('broadcast_message',{'message': data['message'],'username':data['username']},broadcast=True)
     
 @socketio.on('connect_success')
 def connected_msg(data):
     data['username'] = session['username']
-    emit('broadcast_message',{'message': data['message'],'username':data['username']},broadcast=True)
+    emit('broadcast_reminder',{'message': data['message'],'username':data['username']},broadcast=True)
 
 if __name__ == '__main__':#确保本py文件仅在直接运行时执行下列代码，作为模块调用时不会执行测试代码
     socketio.run(app,debug=True,host='0.0.0.0',port=5000)#用 run() 函数来让应用运行在本地服务器上

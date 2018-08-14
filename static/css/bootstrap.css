@@ -9072,3 +9072,31 @@ a.text-dark:hover, a.text-dark:focus {
   color:red;
   text-align:center;
 }
+
+/*##聊天室信息显示框（自身发送）## */
+.self_message{
+  color:blue;
+  text-align:right;
+  font-size:40px;
+}
+
+/*##聊天室信息显示框（他人发送）## */
+.others_message{
+  color:red;
+  text-align:left;
+  font-size:40px;
+}
+
+/*##聊天室信息显示框（提示信息）## */
+.remind_message{
+  text-align:center;
+  margin:0px auto;
+  font-size:40px;
+}
+
+/*##聊天室信息发送框## */
+.send_message_block{
+  position:fixed;
+  bottom:0;
+  right:0;
+}

@@ -1,43 +1,86 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Flask-SocketIO Test</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
+    <title>聊天室</title>
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+    <script type="text/javascript" src = "../static/js/ajax.js"></script>
     <script type="text/javascript" charset="utf-8">
-    $(document).ready(function() 
+$(document).ready(function() 
+{
+    var socket = io.connect();
+
+    socket.on('connect', function(data)
     {
-        var socket = io.connect();
-
-        socket.on('connect', function(data)
-        {
-            socket.emit('connect_success',{'message': 'connected!','username':"None"});
-        }
-        );
-
-        socket.on('broadcast_message', function(data) 
-        {
-            $('#log').append('<br>' + data.username + ': ' + data.message);
-        }
-        );
-
-        $('form#emit').submit(function() 
-        {
-                socket.emit('upload_message',{'message': $('#emit_data').val(),'username':"None"});
-                return false;
-        }
-        );
+        socket.emit('connect_success',{'message': 'have entered in the chat room!','username':"None"});
     }
     );
-    
+
+    socket.on('broadcast_message', function(data) 
+    {
+        var message_div=$('<div>'+'<br>' + data.username + ' : ' + data.message +'</div>'); 
+        if (data.username == '{{username}}')
+        {
+            message_div.addClass("self_message");
+        }
+        else
+        {
+            message_div.addClass("others_message");
+        }
+        $('#log').append(message_div);
+    }
+    );
+
+    socket.on('broadcast_reminder', function(data) 
+    {
+        var reminder_div=$('<div>'+'<br>' + data.username+ " " + data.message +'</div>'); 
+        reminder_div.addClass("remind_message");
+        $('#log').append(reminder_div);
+    }
+    );
+
+    $('form#emit').submit(function() 
+    {
+            socket.emit('upload_message',{'message': $('#emit_data').val(),'username':"None"});
+            return false;
+    }
+    );
+}
+);
     </script>   
 </head>
 <body>
-    <h2>WebSokect</h2>
-    <form id="emit" method="POST" action='#'>
+        <div class="nav" style = "float:right">
+                {% if uid %}
+                <li class="nav-item" style = "float:right">
+                <p class="nav-link active" style = "color:#007bff">你好，{{username}}</p>
+                </li>
+                <li class="nav-item" style = "float:right">
+                <a  class="nav-link active" href="/">退出聊天室</a>
+                </li>
+                <li class="nav-item" style = "float:right">
+                <a  class="nav-link active" href="/signoff">退出登录</a>
+                </li>
+                {% block state %}{% endblock %}
+                {% else %}
+                <li class="nav-item" style = "float:right">
+                <a class="nav-link active" href="javascript:popUpSignin()">登录</a>
+                
+                </li>
+                <li class="nav-item" style = "float:right">
+                <a class="nav-link active" href="javascript:popUpReg()">注册</a>
+                </li>
+                {% endif %}
+            </div>
+    <h2 class = "inDivCenter" style = "font-size:60px">聊天室</h2>
+    <form id="emit" method="POST" class = "send_message_block" action='#'>
         <input type="text" name="emit_data" id="emit_data" placeholder="Message">
-        <input type="submit" value="Echo">
+        <input type="submit" class = "btn btn-primary" value="发送">
     </form>
-    <div id='log'></div>
+    <div id='log'>
+        <div></div>
+    </div>
 </body>
 </html>
